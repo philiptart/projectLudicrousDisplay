@@ -1,8 +1,8 @@
 const API_key = "fafe8cbedaafdf72bc1803ea320e36f7";
 const leagueId = 39;
 const currentYear = 2022;
+const satisticsUrl =  `https://v3.football.api-sports.io/fixtures/statistics?league=${leagueId}&season=${currentYear}`
 const teamsEndpoint = `https://v3.football.api-sports.io/teams?league=${leagueId}&season=${currentYear}`;
-const url = `https://v3.football.api-sports.io/fixtures?league=${leagueId}&season=${currentYear}`;
 const searchButton = $("#searchButton");
 const searchBar = $("#SearchBar input");
 const matchesSection = $("#Matches");
@@ -17,12 +17,12 @@ var requestOptions = {
 	redirect: 'follow'
 };
 
+
 // Function to get team ID from team name
 async function getTeamId(teamName) {
   const response = await fetch(teamsEndpoint, requestOptions);
   const data = await response.json();
   const team = data.response.find(t => t.team.name.toLowerCase() === teamName.toLowerCase());
-  console.log(data);
   return team.team.id;
 }
 
@@ -31,7 +31,6 @@ async function getFixtures(teamId) {
   const fixturesEndpoint = `https://v3.football.api-sports.io/fixtures?league=${leagueId}&season=${currentYear}&team=${teamId}`;
   const response = await fetch(fixturesEndpoint, requestOptions);
   const data = await response.json();
-  console.log(data);
   return data.response;
 }
 
@@ -50,8 +49,18 @@ function displayFixtures(fixtures) {
       const team2Card = $("<div>").addClass("Team2").append($("<h2>").text(team2));
       matchContainer.append(team1Card, versesCard, team2Card);
       matchesSection.append(matchContainer);
+
+      // Click event to select one match
+      matchContainer.click(event => {
+        $(".Match").not($(event.currentTarget)).hide();
+        const possesionContainer = $("<div>").addClass("possesionContainer").append($("<h2>").text());
+        team1Card.append(possesionContainer); 
+
+      });
+      
     });
   }
+  
 
 // Event listener for search button
 searchButton.on("click", async () => {
