@@ -1,13 +1,13 @@
 const API_key = "fafe8cbedaafdf72bc1803ea320e36f7";
 const leagueId = 39;
 const currentYear = 2022;
-const satisticsUrl =  `https://v3.football.api-sports.io/fixtures/statistics?league=${leagueId}&season=${currentYear}`
 const teamsEndpoint = `https://v3.football.api-sports.io/teams?league=${leagueId}&season=${currentYear}`;
 const searchButton = $("#searchButton");
 const searchBar = $("#SearchBar input");
 const matchesSection = $("#Matches");
+const oneMatch = $(".match");
 
-var myHeaders = new Headers();
+const myHeaders = new Headers();
 myHeaders.append("x-rapidapi-key", API_key);
 myHeaders.append("x-rapidapi-host", "v3.football.api-sports.io");
 
@@ -34,35 +34,52 @@ async function getFixtures(teamId) {
   return data.response;
 }
 
-// Function to display fixtures on HTML page
-function displayFixtures(fixtures) {
-    matchesSection.empty(); 
-    fixtures.forEach(fixture => {
-      const team1 = fixture.teams.home.name;
-      const team2 = fixture.teams.away.name;
-      const team1Score = fixture.goals.home; 
-      const team2Score = fixture.goals.away; 
-      const status = fixture.fixture.status.short === "FT"? `${team1Score} - ${team2Score}`: fixture.fixture.status.short === "NS"? fixture.fixture.date.substring(0, 16).replace("T", " "): fixture.fixture.status.long;
-      const matchContainer = $("<div>").addClass("Match");
-      const team1Card = $("<div>").addClass("Team1").append($("<h2>").text(team1));
-      const versesCard = $("<div>").addClass("Verses").append($("<h2>").text("V"), $("<p>").attr("id", "match-time").text(status)); 
-      const team2Card = $("<div>").addClass("Team2").append($("<h2>").text(team2));
-      matchContainer.append(team1Card, versesCard, team2Card);
-      matchesSection.append(matchContainer);
+async function displayFixtures(fixtures) {
+  matchesSection.empty(); 
+  fixtures.forEach(async (fixture) => {
+    const team1 = fixture.teams.home.name;
+    const team2 = fixture.teams.away.name;
+    const team1Score = fixture.goals.home; 
+    const team2Score = fixture.goals.away; 
+    const status = fixture.fixture.status.short === "FT"? `${team1Score} - ${team2Score}`: fixture.fixture.status.short === "NS"? fixture.fixture.date.substring(0, 16).replace("T", " "): fixture.fixture.status.long;
+    const matchContainer = $("<div>").addClass("Match");
+    const team1Card = $("<div>").addClass("Team1").append($("<h2>").text(team1));
+    const versesCard = $("<div>").addClass("Verses").append($("<h2>").text("V"), $("<p>").attr("id", "match-time").text(status)); 
+    const team2Card = $("<div>").addClass("Team2").append($("<h2>").text(team2));
+    matchContainer.append(team1Card, versesCard, team2Card);
+    
 
-      // Click event to select one match
-      matchContainer.click(event => {
-        $(".Match").not($(event.currentTarget)).hide();
-        const possesionContainer = $("<div>").addClass("possesionContainer").append($("<h2>").text());
-        team1Card.append(possesionContainer); 
+    matchesSection.append(matchContainer);
 
-      });
-      
+    // Click event to select one match and display statistics
+    matchContainer.click(async (event) => {
+      $(".Match").not($(event.currentTarget)).hide();
+
+      const fixtureId = fixture.fixture.id; // Get the fixture ID of the selected match
+      const statisticsEndpoint = `https://v3.football.api-sports.io/fixtures/statistics?fixture=${fixtureId}`;
+      const statisticsResponse = await fetch(statisticsEndpoint, requestOptions);
+      const statisticsData = await statisticsResponse.json();
+      console.log(statisticsData); // Print the statistics data to the console
+
+      const team1Container = $("<div>").addClass("team1-container").append($("<h3>").text(team1));
+      const stats = $("<div>").addClass("statName").append($("<ul class='statList'>").append(
+        $("<li>").text("Posession %"),
+        $("<li>").text("Shots on goal"),
+        $("<li>").text("Fouls"),
+        $("<li>").text("Yellow cards"),
+        $("<li>").text("Red cards"),
+      ));
+      const team2Container = $("<div>").addClass("team2-container").append($("<h3>").text(team2));
+      const teamContainer = $("<div>").addClass("team-container").append(team1Container, stats, team2Container);
+      const statisticsContainer = $("<div>").addClass("statistics-container").text("Statistics");
+
+      $(event.currentTarget).after(statisticsContainer,teamContainer);
     });
-  }
+  });
+}
   
 
-// Event listener for search button
+// Click event for search button
 searchButton.on("click", async () => {
     const teamName = searchBar.val().trim();
     if (teamName !== "") {
