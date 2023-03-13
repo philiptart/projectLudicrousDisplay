@@ -1,0 +1,46 @@
+header{
+    background-color: aqua;
+    text-align: center;
+}
+
+main{
+    display: flex;
+}
+
+aside{
+    width:25%;
+    height: fit-content;
+    background-color: aquamarine;
+}
+
+form{
+    background-color: beige;
+    text-align: center;
+    font-size: larger;
+    padding-top: 10px ;
+    padding-bottom: 10px;
+}
+input{
+    width: 100%;
+    text-align: center;
+}
+#PrevSearches p{
+    padding-left: 10%;
+}
+#Matches{
+    display: flex;
+    flex-direction: column;
+    background-color: greenyellow;
+    width: 70%;
+}
+.Match{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.Verses{
+    text-align: center;
+}
+.Team2{
+    text-align: right;
+}
