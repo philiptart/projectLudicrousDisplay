@@ -60,27 +60,34 @@ input{
 }
 
 .team-container {
-    background-color: black;
     display: flex;
     justify-content: space-around;
 }
 
-.team1-container {
-    background-color: blanchedalmond;
+.team1-container {  
+    width: fit-content;
+    height: fit-content;
+    margin-left: 300px;
 }
 
 .team2-container {
-    background-color: forestgreen;
-}
-
-.statName {
-    background-color: blueviolet;
+    width: fit-content;
+    height: fit-content;
+    margin-right: 300px;
 }
 
 .statList {
-    background-color: lightcoral;
     list-style: none;
     text-align: center;
     height: 100%;
     padding-right: 35px;
+}
+
+.statNameList {
+    list-style: none;
+    padding-right: 40px;}
+
+.stat-name {
+    text-align: center;
+    width: fit-content;
 }
