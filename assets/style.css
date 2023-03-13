@@ -44,3 +44,50 @@ input{
 .Team2{
     text-align: right;
 }
+
+
+#Matches{
+    display: flex;
+    flex-direction: column;
+    background-color: greenyellow;
+    width: 70%;
+}
+
+.statistics-container {
+    width: 100%;
+    background-color: yellow;
+    text-align: center;
+}
+
+.team-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.team1-container {  
+    width: fit-content;
+    height: fit-content;
+    margin-left: 300px;
+}
+
+.team2-container {
+    width: fit-content;
+    height: fit-content;
+    margin-right: 300px;
+}
+
+.statList {
+    list-style: none;
+    text-align: center;
+    height: 100%;
+    padding-right: 35px;
+}
+
+.statNameList {
+    list-style: none;
+    padding-right: 40px;}
+
+.stat-name {
+    text-align: center;
+    width: fit-content;
+}
