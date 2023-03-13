@@ -35,6 +35,9 @@ async function getFixtures(teamId) {
 
 async function displayFixtures(fixtures) {
   matchesSection.empty();
+
+  fixtures.sort((a, b) => new Date(a.fixture.date) - new Date(b.fixture.date));
+  
   for (const fixture of fixtures) {
     const team1 = fixture.teams.home.name;
     const team2 = fixture.teams.away.name;
@@ -53,6 +56,8 @@ async function displayFixtures(fixtures) {
     // Click event to select one match and display statistics
     matchContainer.click(async (event) => {
       $(".Match").not($(event.currentTarget)).hide();
+
+      $(event.currentTarget).addClass("clicked");
 
       const fixtureId = fixture.fixture.id;
       const statisticsEndpoint = `https://v3.football.api-sports.io/fixtures/statistics?fixture=${fixtureId}`;
@@ -102,14 +107,32 @@ async function displayFixtures(fixtures) {
       team2Container.append(team2StatsDiv);
 
       const teamContainer = $("<div>").addClass("team-container").append(team1Container, statNameContainer, team2Container);
-      const statisticsContainer = $("<div>").addClass("statistics-container").text("Statistics");
-      $(event.currentTarget).after(statisticsContainer, teamContainer);
+      const empty = $("<p>").addClass("empty-p").text("P");
+      $(event.currentTarget).after(empty, teamContainer);
+      $(".clicked").off("click");
     });
   }
 }
 
-// Click event for search button
-searchButton.on("click", async () => {
+// click and keydown for search button
+searchBar.on("keydown", async (event) => {
+  if (event.which === 13) { 
+    event.preventDefault(); // prevent the default form submit behavior
+    const teamName = searchBar.val().trim();
+    if (teamName !== "") {
+      try {
+        const teamId = await getTeamId(teamName);
+        const fixtures = await getFixtures(teamId);
+        displayFixtures(fixtures);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
+});
+
+searchButton.on("click", async (event) => {
+  event.preventDefault(); // prevent the default form submit behavior
   const teamName = searchBar.val().trim();
   if (teamName !== "") {
     try {
