@@ -3,75 +3,100 @@
 
 <head>
     <meta charset="UTF-8">
+	<meta name="description" content="Football league Scores for Live Games">
+  	<meta name="keywords" content="Football Results, Live Match Scores, Football League Compare">
+  	<meta name="author" content="Michael Walters, Aaron Hickman, Philip Tart">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./assets/style.css">
-    <title>Football Scores Project</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+	<title>Ludicrous Display | Football Scores Project</title>
 </head>
 
 <body>
-    <header>
-        <h1>Football Scores</h1>
+    <header class="is-light">
+        <h1 class="FontBold title is-3">Ludicrous Display<br>Football Scores</h1>	
     </header>
-<main>
-    <aside id="Search">
-        <form id="SearchBar">
-            <input type="text" placeholder="Search for a team">  
+<main class="Font">
+    <aside id="Search" class="notification is-hidden-touch">
+        <form id="SearchBar" class="is-Light">
+            <input type="text" id="SearchBox" placeholder="Search for a team" class="FontReg subtitle is-6">  
             <button type="button" id="searchButton">Search</button>
         </form>
         
         
-        <container id="PrevSearches">
+        <container id="PrevSearches" class="SearchHistory">
             <!--Replace with dynamically created content from previous searches-->
-            <p>Search 1</p>
-            <p>Search 2</p>
-            <p>Search 3</p>
-            <p>Search 4</p>
+            <p class="FontMed title is-6">Search 1</p>
+            <p class="FontMed title is-6">Search 2</p>
+            <p class="FontMed title is-6">Search 3</p>
+            <p class="FontMed title is-6">Search 4</p>
         </container>
     </aside>
 
-    <section id="Matches">
-        <container class="Match">
+    <section id="Matches" class="Font">
+
+        <container id="Search" class="SearchBoxTouch notification is-flex-order-1 is-hidden-desktop">
+			<form class="notification is-Light" id="SearchBar">
+				<input type="text" id="SearchBox" placeholder="Search for a team" class="FontReg subtitle is-6">
+				<br>
+			</form>
+
+			<container id="PrevSearches" class="SearchBoxTouchResults">
+			<!--Replace with dynamically created content from previous searches-->
+						<p class="FontMed title is-6">Search 1</p>
+						<p class="FontMed title is-6">Search 2</p>
+						<p class="FontMed title is-6">Search 3</p>
+						<p class="FontMed title is-6">Search 4</p>
+			</container>
+		</container>
+		
+		<container class="Match is-flex-order-2 notification is-primary">
             <card class="Team1">
-                <h2>Manchester United</h2>
+                <h2 class="FontBold">Liverpool</h2>
                 <p></p>
             </card>
             <card class="Verses">
-                <h3>V</h3>
-                <p id="match time">01:52</p>
-            </card>
-            <card class="Team2">
-                <h2>Chelsea</h2>
-                <p></p>
-            </card>
-        </container>
-        <container class="Match">
-            <card class="Team1">
-                <h2>Team A</h2>
-                <p></p>
-            </card>
-            <card class="Verses">
-                <h3>V</h3>
+                <h3 class="FontBold">Vs</h3>
                 <p id="match time">21:45</p>
             </card>
             <card class="Team2">
-                <h2>Team B</h2>
+                <h2 class="FontBold">Manchester United</h2>
                 <p></p>
             </card>
-        </container>
-        <container class="Match">
+			
+        </container>	
+        <container class="Match is-flex-order-3 notification is-warning">
             <card class="Team1">
-                <h2>Team A</h2>
+                <h2 class="FontBold">Team A</h2>
                 <p></p>
             </card>
             <card class="Verses">
-                <h3>V</h3>
+                <h3 class="FontBold">Vs</h3>
+                <p id="match time">21:45</p>
+            </card>
+            <card class="Team2">
+                <h2 class="FontBold">Team B</h2>
+                <p></p>
+            </card>
+			
+        </container>
+        <container class="Match is-flex-order-4 notification is-link">
+            <card class="Team1">
+                <h2 class="FontBold">Team A</h2>
+                <p></p>
+            </card>
+            <card class="Verses">
+                <h3 class="FontBold">Vs</h3>
                 <p id="match time">Half Time </p>
             </card>
             <card class="Team2">
-                <h2>Team B</h2>
+                <h2 class="FontBold">Team B</h2>
                 <p></p>
             </card>
-        </container>
-        
+		 
     </section>
 </main>
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>

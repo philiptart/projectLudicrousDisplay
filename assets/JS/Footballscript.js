@@ -46,7 +46,7 @@ async function displayFixtures(fixtures) {
     const status = fixture.fixture.status.short === "FT" ? `${team1Score} - ${team2Score}` : fixture.fixture.status.short === "NS" ? fixture.fixture.date.substring(0, 16).replace("T", " ") : fixture.fixture.status.long;
     const matchContainer = $("<container>").addClass("Match");
     const team1Card = $("<card>").addClass("Team1").append($("<h2>").text(team1));
-    const versesCard = $("<card>").addClass("Verses").append($("<h2>").text("V"), $("<p>").attr("id", "match-time").text(status));
+    const versesCard = $("<card>").addClass("Verses").append($("<h3>").text("V"), $("<p>").attr("id", "match-time").text(status));
     const team2Card = $("<card>").addClass("Team2").append($("<h2>").text(team2));
     team1Card.append("<p>");
     team2Card.append("<p>");
