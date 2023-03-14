@@ -16,12 +16,12 @@ Then: The user is provided with information about the football teams and scores.
 ## GitLab Repository
 
 ```bash
-https://github.com/philiptart/project01-mw-rh-pt
+https://github.com/philiptart/projectLudicrousDisplay
 ```
 ## Online Location
 
 ```bash
-https://philiptart.github.io/project01-mw-rh-pt/
+https://philiptart.github.io/projectLudicrousDisplay
 ```
 
 ## Key Files
