@@ -33,18 +33,19 @@ var Wfetch = function(Wterm){ //function to fetch results from wiki API includin
         )
 
 }
-
-
+var eventListener = function(){
 var matches = document.getElementsByTagName("h2") //element that contains idividual matches into an array
    for(let i=0;i<matches.length;i++){ //for loop to apply to each element (team)
         matches[i].addEventListener("click",function(event){ //listens for clicks on team 
+            console.log("Clicked team")
             var search = event.target.innerHTML  //reads the team title from the h2 element
             Wtext = event.target.nextElementSibling //saves the element below the h2 (the p tag) in a Wtext variable
-            if(Wtext.innerHTML=="Additional Team info from wikipedia"){ //if the Wtext is the default,
+            if(Wtext.innerHTML==""){ //if the Wtext is the default,
             Wfetch(search) //fetch with the search term from h2 element
             } else { //if the html content is not the default
-                Wtext.innerHTML="Additional Team info from wikipedia" //make it the default - clear it away -
+                Wtext.innerHTML="" //make it the default - clear it away -
             }
         })
-    }
+    }}
 
+eventListener();

@@ -44,20 +44,25 @@ async function displayFixtures(fixtures) {
     const team1Score = fixture.goals.home;
     const team2Score = fixture.goals.away;
     const status = fixture.fixture.status.short === "FT" ? `${team1Score} - ${team2Score}` : fixture.fixture.status.short === "NS" ? fixture.fixture.date.substring(0, 16).replace("T", " ") : fixture.fixture.status.long;
-    const matchContainer = $("<div>").addClass("Match");
-    const team1Card = $("<div>").addClass("Team1").append($("<h2>").text(team1));
-    const versesCard = $("<div>").addClass("Verses").append($("<h2>").text("V"), $("<p>").attr("id", "match-time").text(status));
-    const team2Card = $("<div>").addClass("Team2").append($("<h2>").text(team2));
+    const matchContainer = $("<container>").addClass("Match");
+    const team1Card = $("<card>").addClass("Team1").append($("<h2>").text(team1));
+    const versesCard = $("<card>").addClass("Verses").append($("<h2>").text("V"), $("<p>").attr("id", "match-time").text(status));
+    const team2Card = $("<card>").addClass("Team2").append($("<h2>").text(team2));
+    team1Card.append("<p>");
+    team2Card.append("<p>");
     matchContainer.append(team1Card, versesCard, team2Card);
+    
+  
 
 
     matchesSection.append(matchContainer);
 
     // Click event to select one match and display statistics
-    matchContainer.click(async (event) => {
-      $(".Match").not($(event.currentTarget)).hide();
-
-      $(event.currentTarget).addClass("clicked");
+    versesCard.click(async (event) => {
+      // $(".Match").not($(event.currentTarget)).hide();
+      var parentEl = event.target.parentElement.parentElement
+      console.log(parent)
+      $(parentEl).addClass("clicked");
 
       const fixtureId = fixture.fixture.id;
       const statisticsEndpoint = `https://v3.football.api-sports.io/fixtures/statistics?fixture=${fixtureId}`;
@@ -105,13 +110,11 @@ async function displayFixtures(fixtures) {
       );
       const team2StatsDiv = $("<div>").addClass("team2-stats").append(team2StatsList);
       team2Container.append(team2StatsDiv);
-
       const teamContainer = $("<div>").addClass("team-container").append(team1Container, statNameContainer, team2Container);
-      const empty = $("<p>").addClass("empty-p").text("P");
-      $(event.currentTarget).after(empty, teamContainer);
+      $(parentEl).after(teamContainer);
       $(".clicked").off("click");
     });
-  }
+  }eventListener();
 }
 
 // click and keydown for search button
