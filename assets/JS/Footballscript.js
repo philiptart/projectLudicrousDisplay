@@ -5,6 +5,21 @@ const teamsEndpoint = `https://v3.football.api-sports.io/teams?league=${leagueId
 const searchButton = $("#searchButton");
 const searchBar = $("#SearchBar input");
 const matchesSection = $("#Matches");
+var item =1
+var colourClass =""
+
+var itemClassSelector = function(){
+  if(item%3==0){
+    item++;
+    colourClass = "is-link";
+  } else if (item%2==0){
+    item++;
+    colourClass = "is-warning";
+  } else {
+    item++;
+    colourClass = "is-primary";
+  }
+}
 
 const myHeaders = new Headers();
 myHeaders.append("x-rapidapi-key", API_key);
@@ -39,15 +54,17 @@ async function displayFixtures(fixtures) {
   fixtures.sort((a, b) => new Date(a.fixture.date) - new Date(b.fixture.date));
   
   for (const fixture of fixtures) {
+    itemClassSelector()
+
     const team1 = fixture.teams.home.name;
     const team2 = fixture.teams.away.name;
     const team1Score = fixture.goals.home;
     const team2Score = fixture.goals.away;
     const status = fixture.fixture.status.short === "FT" ? `${team1Score} - ${team2Score}` : fixture.fixture.status.short === "NS" ? fixture.fixture.date.substring(0, 16).replace("T", " ") : fixture.fixture.status.long;
-    const matchContainer = $("<container>").addClass("Match");
-    const team1Card = $("<card>").addClass("Team1").append($("<h2>").text(team1));
-    const versesCard = $("<card>").addClass("Verses").append($("<h3>").text("V"), $("<p>").attr("id", "match-time").text(status));
-    const team2Card = $("<card>").addClass("Team2").append($("<h2>").text(team2));
+    const matchContainer = $("<container>").addClass("Match notification "+colourClass);
+    const team1Card = $("<card>").addClass("Team1").append($("<h2>").addClass("FontBold").text(team1));
+    const versesCard = $("<card>").addClass("Verses").append($("<h3>").addClass("FontBold").text("V"), $("<p>").attr("id", "match-time").text(status));
+    const team2Card = $("<card>").addClass("Team2").append($("<h2>").addClass("FontBold").text(team2));
     team1Card.append("<p>");
     team2Card.append("<p>");
     matchContainer.append(team1Card, versesCard, team2Card);
@@ -61,7 +78,6 @@ async function displayFixtures(fixtures) {
     versesCard.click(async (event) => {
       // $(".Match").not($(event.currentTarget)).hide();
       var parentEl = event.target.parentElement.parentElement
-      console.log(parent)
       $(parentEl).addClass("clicked");
 
       const fixtureId = fixture.fixture.id;
@@ -73,7 +89,7 @@ async function displayFixtures(fixtures) {
       const team1Stats = statisticsData.response[0].statistics;
       const team2Stats = statisticsData.response[1].statistics;
 
-      const statNameContainer = $("<div>").addClass("stat-name");
+      const statNameContainer = $("<div>").addClass("stat-name FontBold");
       const statNameList = $("<ul>").addClass("statNameList");
 
       statNameList.append(
@@ -110,7 +126,7 @@ async function displayFixtures(fixtures) {
       );
       const team2StatsDiv = $("<div>").addClass("team2-stats").append(team2StatsList);
       team2Container.append(team2StatsDiv);
-      const teamContainer = $("<div>").addClass("team-container").append(team1Container, statNameContainer, team2Container);
+      const teamContainer = $("<div>").addClass("team-container notification").append(team1Container, statNameContainer, team2Container);
       $(parentEl).after(teamContainer);
       $(".clicked").off("click");
     });
