@@ -37,7 +37,7 @@ section#Matches{
 }
 
 #SearchBox{
-	margin: 0% 0% 25% 0%;
+	margin-bottom: 0px;
 }
 
 #PrevSearches{
@@ -50,6 +50,7 @@ section#Matches{
 
 #Matches{
     display: flex;
+	width: 70vw;
 }
 
 .Match{
@@ -58,13 +59,33 @@ section#Matches{
     justify-content: space-between;
 	width: 90%;
 }
-
+.team-container{
+	display: flex;
+	width:90%;
+	justify-content: center;
+}
+.stat-name{
+	margin: 0px 30px;
+}
+.Match.notification:first-child{
+	margin-bottom: 0px;
+}
+.Match.notification:not(:first-child){
+	margin-top: 1.5rem;
+	margin-bottom: 0px;
+}
 .Verses{
     text-align: center;
 }
-
+.Team1{
+	width:40%;
+}
 .Team2{
     text-align: right;
+	width:40%;
+}
+.Team2>h2{
+	text-align: right;
 }
 
 .FontFamily{
@@ -93,19 +114,27 @@ section#Matches{
 }
 
 @media screen and (max-width: 1023px){
-
+main{
+	flex-direction: column;
+	align-items: center;
+}
+aside{
+	width:85vw
+}
 form{
-    
     text-align: center;
     font-size: larger;
     padding-top: 10px ;
     padding-bottom: 10px;
 	justify-content: space-between;
 }
+#PrevSearches{
+	display: flex;
+}
 	
 section#Matches{
-	margin: 5% 5% 5% 5%;
 	justify-content: center;
+	width:90vw;
 }
 	
 .SearchBoxTouch{

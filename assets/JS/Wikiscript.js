@@ -37,7 +37,6 @@ var eventListener = function(){
 var matches = document.getElementsByTagName("h2") //element that contains idividual matches into an array
    for(let i=0;i<matches.length;i++){ //for loop to apply to each element (team)
         matches[i].addEventListener("click",function(event){ //listens for clicks on team 
-            console.log("Clicked team")
             var search = event.target.innerHTML  //reads the team title from the h2 element
             Wtext = event.target.nextElementSibling //saves the element below the h2 (the p tag) in a Wtext variable
             if(Wtext.innerHTML==""){ //if the Wtext is the default,
