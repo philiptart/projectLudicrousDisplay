@@ -159,3 +159,9 @@ section#Matches{
     width: 95%;
 }
 }
+
+#prevSearchesTitle {
+	margin-bottom: 20px;
+	text-align: center;
+}
+
