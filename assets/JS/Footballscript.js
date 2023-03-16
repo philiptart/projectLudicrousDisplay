@@ -58,7 +58,14 @@ async function displayFixtures(fixtures) {
   matchesSection.empty().addClass("on");
 
   fixtures.sort((a, b) => new Date(a.fixture.date) - new Date(b.fixture.date));
-  
+  //explainer heading
+    const headerContainer = $("<container>").addClass("Match notification");
+    const team1head = $("<card>").addClass("Team1").append($("<h1>").addClass("FontBold").text("Click for team info"));
+    const verseshead = $("<card>").addClass("Verses").append($("<h1>").addClass("FontBold").text("Click for game info"));
+    const team2head = $("<card>").addClass("Team2").append($("<h1>").addClass("FontBold").text("Click for team info"));
+    headerContainer.append(team1head, verseshead, team2head);
+    matchesSection.append(headerContainer);
+
   for (const fixture of fixtures) {
     itemClassSelector()
 
@@ -89,7 +96,6 @@ async function displayFixtures(fixtures) {
       const statisticsEndpoint = `https://v3.football.api-sports.io/fixtures/statistics?fixture=${fixtureId}`;
       const statisticsResponse = await fetch(statisticsEndpoint, requestOptions);
       const statisticsData = await statisticsResponse.json();
-      console.log(statisticsData);
     
       const team1Stats = statisticsData.response[0].statistics;
       const team2Stats = statisticsData.response[1].statistics;
@@ -143,49 +149,39 @@ async function displayFixtures(fixtures) {
   }eventListener();
 }
 
-// click and keydown for search button
-searchBar.on("keydown", async (event) => {
-  if (event.which === 13) { 
-    event.preventDefault();
-    const teamName = searchBar.val().trim();
-    if (teamName !== "") {
-      try {
-        const teamId = await getTeamId(teamName);
-        const fixtures = await getFixtures(teamId);
-        displayFixtures(fixtures);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  }
-});
-
-searchButton.on("click", async (event) => {
-  event.preventDefault(); 
-  const teamName = searchBar.val().trim();
-  if (teamName !== "") {
+//search trigger
+var searchTrigger = async()=>{
+  const teamName = searchBar.val().trim(); //gets value in the search bar
+  if (teamName !== "") { //checks if search is empty
     try {
       const teamId = await getTeamId(teamName);
       const fixtures = await getFixtures(teamId);
       displayFixtures(fixtures);
-    } catch (error) {
-      console.log(error);
+    } catch (error) { //if error is returned
+      console.log(error); //display the error in the console
     }
   }
-
-
+}
+// click and keydown for search button
+searchBar.on("keydown", async (event) => {
+  if (event.which === 13) { //if the enter key is clicked
+    event.preventDefault(); //dont reset
+    searchTrigger() //trigger the search
+  }
 });
+
+searchButton.on("click", async (event) => { //when search is clicked
+  event.preventDefault(); //dont reset 
+  searchTrigger();//trigger the search
+  });
 
 
 // Search history
 $(document).ready(function() {
-
+  //valid teams
   const currentTeams = ["arsenal", "aston villa", "brentford", "brighton", "bournemouth", "chelsea", "crystal palace", "everton", "leeds united", "leicester city", "liverpool", "manchester city", "manchester united", "newcastle", "fulham", "southampton", "tottenham", "nottingham forest", "west ham", "wolves"];
-
-  const previousSearches = JSON.parse(localStorage.getItem("previousSearches")) || [];
-
-  const maxPreviousSearches = 6;
-
+  const previousSearches = JSON.parse(localStorage.getItem("previousSearches")) || [];//get previous searches from local storage
+  const maxPreviousSearches = 6; //sets the max number of prev searches 
   $("#searchButton").click(search);
 
   $("#SearchBox").keydown(function(event) {
@@ -196,19 +192,20 @@ $(document).ready(function() {
 
   function search() {
     const searchTerm = $("#SearchBox").val().toLowerCase();
-    if (currentTeams.includes(searchTerm)) {
-      previousSearches.unshift(searchTerm);
-      if (previousSearches.length > maxPreviousSearches) {
+    if (currentTeams.includes(searchTerm)) { //checks that the search was with a valid team
+      if(previousSearches.includes(searchTerm)){
+      }else{previousSearches.unshift(searchTerm);} //put the new search at top of array
+      if (previousSearches.length > maxPreviousSearches) {//if the previous search array is over the max lenght, remove the last one
         previousSearches.pop();
       }
-      localStorage.setItem("previousSearches", JSON.stringify(previousSearches));
+      localStorage.setItem("previousSearches", JSON.stringify(previousSearches));//store the searches in local storage
     }
     updatePreviousSearchesButtons(previousSearches);
   }
 
   updatePreviousSearchesButtons(previousSearches);
 
-  console.log("Previous searches:", previousSearches);
+  // console.log("Previous searches:", previousSearches);
 
   function updatePreviousSearchesButtons(searches) {
     $(".previous-searches-container").remove();
@@ -226,6 +223,7 @@ $(document).ready(function() {
       const button = $("<button>").addClass("button is-outlined previous-searches-button").text(searchTerm);
       button.click(function() {
         $("#SearchBox").val($(this).text());
+        searchTrigger();
       });
       const container = $("<div>").addClass("previous-searches-container").append(button);
       $("#PrevSearches").append(container);
