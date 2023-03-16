@@ -49,6 +49,9 @@ section#Matches{
 }
 
 #Matches{
+	display: none;
+}
+#Matches.on{
     display: flex;
 	width: 70vw;
 }

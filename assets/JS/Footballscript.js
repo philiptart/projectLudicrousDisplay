@@ -49,7 +49,7 @@ async function getFixtures(teamId) {
 }
 
 async function displayFixtures(fixtures) {
-  matchesSection.empty();
+  matchesSection.empty().addClass("on");
 
   fixtures.sort((a, b) => new Date(a.fixture.date) - new Date(b.fixture.date));
   
