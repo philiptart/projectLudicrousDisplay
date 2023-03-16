@@ -1,4 +1,6 @@
-# Project01-mw-rh-pt
+# projectLudicrousDisplay
+
+![image](https://github.com/philiptart/projectLudicrousDisplay/blob/main/assets/deployed-app-screenshot.png)
 
 # Web app using HTML/CSS/JavaScript/API's for football league results
 
