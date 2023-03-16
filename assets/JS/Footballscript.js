@@ -13,15 +13,15 @@ var colourClass =""
   
 
 var itemClassSelector = function(){
-  if(item%3==0){
-    item++;
-    colourClass = "is-link";
-  } else if (item%2==0){
-    item++;
-    colourClass = "is-warning";
-  } else {
-    item++;
+  if(item==1){
     colourClass = "is-primary";
+    item++;
+  } else if (item==2){
+    colourClass = "is-warning";
+    item++;
+  } else {
+    item=1;
+    colourClass = "is-link";
   }
 }
 
@@ -55,7 +55,7 @@ async function getFixtures(teamId) {
 
 // Function to display fictures
 async function displayFixtures(fixtures) {
-  matchesSection.empty();
+  matchesSection.empty().addClass("on");
 
   fixtures.sort((a, b) => new Date(a.fixture.date) - new Date(b.fixture.date));
   
