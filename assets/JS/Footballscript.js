@@ -9,6 +9,7 @@ var item =1
 var colourClass =""
 
 
+
   
 
 var itemClassSelector = function(){
@@ -35,6 +36,7 @@ var requestOptions = {
 };
 
 
+
 // Function to get team ID from team name
 async function getTeamId(teamName) {
   const response = await fetch(teamsEndpoint, requestOptions);
@@ -51,6 +53,7 @@ async function getFixtures(teamId) {
   return data.response;
 }
 
+// Function to display fictures
 async function displayFixtures(fixtures) {
   matchesSection.empty();
 
@@ -173,6 +176,8 @@ searchButton.on("click", async (event) => {
 
 });
 
+
+// Search history
 $(document).ready(function() {
 
   const currentTeams = ["arsenal", "aston villa", "brentford", "brighton", "bournemouth", "chelsea", "crystal palace", "everton", "leeds united", "leicester city", "liverpool", "manchester city", "manchester united", "newcastle", "fulham", "southampton", "tottenham", "nottingham forest", "west ham", "wolves"];
