@@ -3,78 +3,61 @@
 
 <head>
     <meta charset="UTF-8">
+	<meta name="description" content="Football league Scores for Live Games"> 
+  	<meta name="keywords" content="Football Results, Live Match Scores, Football League Compare">
+  	<meta name="author" content="Michael Walters, Aaron Hickman, Philip Tart">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./assets/style.css">
-    <title>Football Scores Project</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+	<title>Ludicrous Display | Football Scores Project</title>
 </head>
 
 <body>
-    <header>
-        <h1>Football Scores</h1>
+    <header class="is-light">
+        <h1 class="FontBold title is-3">Ludicrous Display<br>Football Scores</h1>	
     </header>
-<main>
-    <aside id="Search">
-        <form id="SearchBar">
-            <input type="text" placeholder="Search for a team">  
-            <button type="button" id="searchButton">Search</button>
-        </form>
-        
-        
-        <container id="PrevSearches">
-            <!--Replace with dynamically created content from previous searches-->
-            <p>Search 1</p>
-            <p>Search 2</p>
-            <p>Search 3</p>
-            <p>Search 4</p>
-        </container>
-    </aside>
+    
+    <main class="Font">
+        <aside id="Search" class="notification">
+            <form id="SearchBar" class="is-Light">
+                <input type="text" id="SearchBox" placeholder="Search for a team" class="FontReg subtitle is-6">  
+                <button type="button" id="searchButton">Search</button>
+            </form>
+            
+            <h2 class="has-text-weight-bold" id="prevSearchesTitle">Search History</h2>
+            <container id="PrevSearches" class="SearchHistory">
+                
+            </container>
+        </aside>
 
-    <section id="Matches">
-        <container class="Match">
-            <card class="Team1">
-                <h2>Manchester United</h2>
-                <p>Additional Team info from wikipedia</p>
-            </card>
-            <card class="Verses">
-                <h3>V</h3>
-                <p id="match time">01:52</p>
-            </card>
-            <card class="Team2">
-                <h2>Chelsea</h2>
-                <p>Additional Team info from wikipedia</p>
-            </card>
-        </container>
-        <container class="Match">
-            <card class="Team1">
-                <h2>Team A</h2>
-                <p>Additional Team info from wikipedia</p>
-            </card>
-            <card class="Verses">
-                <h3>V</h3>
-                <p id="match time">21:45</p>
-            </card>
-            <card class="Team2">
-                <h2>Team B</h2>
-                <p>Additional Team info from wikipedia</p>
-            </card>
-        </container>
-        <container class="Match">
-            <card class="Team1">
-                <h2>Team A</h2>
-                <p>Additional Team info from wikipedia</p>
-            </card>
-            <card class="Verses">
-                <h3>V</h3>
-                <p id="match time">Half Time </p>
-            </card>
-            <card class="Team2">
-                <h2>Team B</h2>
-                <p>Additional Team info from wikipedia</p>
-            </card>
-        </container>
-        
-    </section>
-</main>
-<script src="https://code.jquery.com/jquery-3.6.3.js"></script>
-<script src="./assets/script.js"></script>
+        <section id="Matches" class="Font"> 
+            <!-- Section for results from search to appear, elements are dynamically created by Javascript -->
+            <container class="Matches notification"style="display:flex">
+                <card class="Team1">
+                    <h1 class="FontBold">Click on a team for a wiki excerpt about them </h1>
+                </card>
+                <card class="Verses">
+                    <h1 class="FontBold">Click on "Vs" for game stats</h1>
+                </card>
+                <card class="Team2">
+                    <h1 class="FontBold">Click on a team for a wiki excerpt about them </h1>
+                </card>
+            </container>
+        </section>
+    </main>
+    <footer id="footer"><!--added id to be more specific than bulma-->
+        <h4>Made with Jquery and Bulma, using API-Football and MediaWikiAPI</h4>
+        <ul>
+            <li><a href=https://github.com/MichaelW1996>Michael Walters</a></li>
+            <li><a href=https://github.com/philiptart>Philip Tart</a></li>
+            <li><a href=https://github.com/Hicku>Arron Hickman</a></li>
+        </ul>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+    <script src="./assets/JS/Wikiscript.js"></script>
+    <script src="./assets/JS/Footballscript.js"></script>
 </body>
 </html>
