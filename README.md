@@ -12,6 +12,7 @@ Given: A football game is live at the time of use.
 When: The user will load the web app and select a game.
 Then: The user is provided with information about the football teams and scores.
 
+In practice we focused more on overal season of games due to the lack of live games during development time
 
 ## GitLab Repository
 
@@ -24,15 +25,37 @@ https://github.com/philiptart/projectLudicrousDisplay
 https://philiptart.github.io/projectLudicrousDisplay
 ```
 
-## Key Files
+## Key aspects
 
 #### index.html
 
 This file has been built to meet semantic html 5.0, logical, and SEO accessibility requirements.
 
-#### style.css (Available in /assets/css directory)
+The file is mostly generated dynamically using JS, the elements constructed in a more static fashion are: Header with project title, Search section with search bar and search history & footer with links to developers github profiles
 
-This file has been designed to meet semantic, and logical requirements based on the index.html structure while coded with flexbox and the Bulma CSS Framework to make the application responsive
+#### CSS
+
+This file has been designed to meet semantic, and logical requirements based on the index.html structure while coded with flexbox and the Bulma CSS Framework to make the application responsive.
+
+Media queries were used to allow for a responsive design and maintain readiblity on smaller screens.
+
+<!-- Add photo of mobile vs desktop layout -->
+
+A combination of JS and CSS was used to create contrasting styling used on match results to improve user experience and the start screen before the user makes a search
+
+<!-- add photo of start and searched state -->
+
+### Wiki API
+
+The wiki API is being used here to collect info on a team when clicked, this is done by targetting the content within the team cards and using the content to search using the wiki api, this returns a page number, which can then be used to request an small extract from wikipedia, which is injected below the team name.
+
+One issue with the wiki API is the use of sequenial fetches meaning the response from click to content is over half a second
+
+
+<!-- add photo of deployed state -->
+
+Future developments ideas: variable extract length using user controls, photos from wikipedia as well as text, cached results to improve performance
+
 
 ## Credits
 
