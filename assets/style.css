@@ -115,7 +115,32 @@ section#Matches{
 .FontBold{
 	font-weight: 700;	
 }
-
+/* new rules added start */
+#footer{ 
+	position: fixed;
+	bottom: 0px;
+	width:100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background-color: rgb(205, 203, 201);
+	padding: 5px;
+}
+#footer h4{
+	padding: 5px;
+}
+#footer ul{
+	display: flex; 
+	flex-direction: row; 
+	justify-content: center;
+}
+#footer ul li{
+	padding :5px; 
+	margin: 5px;
+	border-radius: 4px; 
+	background-color: antiquewhite;
+}
+/* new rules added end  */
 @media screen and (max-width: 1023px){
 main{
 	flex-direction: column;
@@ -160,5 +185,9 @@ section#Matches{
 
 .Match{
     width: 95%;
+}
+/* new rule added */
+footer{
+	flex-direction: column;
 }
 }
