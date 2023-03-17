@@ -25,6 +25,7 @@ var itemClassSelector = function(){
   }
 }
 
+// Set headers for API requests
 const myHeaders = new Headers();
 myHeaders.append("x-rapidapi-key", API_key);
 myHeaders.append("x-rapidapi-host", "v3.football.api-sports.io");
@@ -55,6 +56,7 @@ async function getFixtures(teamId) {
 
 // Function to display fictures
 async function displayFixtures(fixtures) {
+  // Clear any existing matches and add 'on' class to show section
   matchesSection.empty().addClass("on");
 
   fixtures.sort((a, b) => new Date(a.fixture.date) - new Date(b.fixture.date));
@@ -66,14 +68,18 @@ async function displayFixtures(fixtures) {
     headerContainer.append(team1head, verseshead, team2head);
     matchesSection.append(headerContainer);
 
+// Iterate over each fixture and add to the matches section
   for (const fixture of fixtures) {
     itemClassSelector()
 
+
+    // Extract data from the fixture object
     const team1 = fixture.teams.home.name;
     const team2 = fixture.teams.away.name;
     const team1Score = fixture.goals.home;
     const team2Score = fixture.goals.away;
     const status = fixture.fixture.status.short === "FT" ? `${team1Score} - ${team2Score}` : fixture.fixture.status.short === "NS" ? fixture.fixture.date.substring(0, 16).replace("T", " ") : fixture.fixture.status.long;
+    // Create HTML elements for the match container
     const matchContainer = $("<container>").addClass("Match notification "+colourClass);
     const team1Card = $("<card>").addClass("Team1").append($("<h2>").addClass("FontBold").text(team1));
     const versesCard = $("<card>").addClass("Verses").append($("<h3>").addClass("FontBold").text("V"), $("<p>").attr("id", "match-time").text(status));
@@ -89,15 +95,16 @@ async function displayFixtures(fixtures) {
 
     // Click event to select one match and display statistics
     versesCard.click(async (event) => {
-      var parentEl = event.target.parentElement.parentElement
-      $(parentEl).addClass("clicked");
+      var parentEl = event.target.parentElement.parentElement  // Get parent element of clicked element
+      $(parentEl).addClass("clicked"); // Add class "clicked" to the parent element
     
       const fixtureId = fixture.fixture.id;
       const statisticsEndpoint = `https://v3.football.api-sports.io/fixtures/statistics?fixture=${fixtureId}`;
-      const statisticsResponse = await fetch(statisticsEndpoint, requestOptions);
+      const statisticsResponse = await fetch(statisticsEndpoint, requestOptions); // Send GET request to statistics endpoint using fetch function
       const statisticsData = await statisticsResponse.json();
-    
-      const team1Stats = statisticsData.response[0].statistics;
+
+      // Retrieve statistics data for each team
+      const team1Stats = statisticsData.response[0].statistics; 
       const team2Stats = statisticsData.response[1].statistics;
     
       // Check if the statistics container already exists
@@ -106,10 +113,10 @@ async function displayFixtures(fixtures) {
         existingStatsContainer.remove(); // Remove the existing container
         return; // 
       }
-    
+       // If the statistics container doesn't exist, create it
       const statNameContainer = $("<div>").addClass("stat-name FontBold");
       const statNameList = $("<ul>").addClass("statNameList");
-    
+    // Add the statistic names to the list
       statNameList.append(
         $("<li>").text("possession"),
         $("<li>").text("shots on goal"),
@@ -119,10 +126,12 @@ async function displayFixtures(fixtures) {
       );
       statNameContainer.append(statNameList);
     
+      
+    // Create container for statistics of team 1
       const team1Container = $("<div>").addClass("team1-container");
       const team1StatsList = $("<ul>").addClass("statList");
       team1StatsList.append(
-        $("<li>").text(team1Stats[9].value),
+        $("<li>").text(team1Stats[9].value),    // Add statistics values for team 1 to list
         $("<li>").text(team1Stats[0].value),
         $("<li>").text(team1Stats[6].value),
         $("<li>").text(team1Stats[10].value),
@@ -131,10 +140,11 @@ async function displayFixtures(fixtures) {
       const team1StatsDiv = $("<div>").addClass("team1-stats").append(team1StatsList);
       team1Container.append(team1StatsDiv);
     
+        // Create container for statistics of team 1
       const team2Container = $("<div>").addClass("team2-container");
       const team2StatsList = $("<ul>").addClass("statList");
       team2StatsList.append(
-        $("<li>").text(team2Stats[9].value),
+        $("<li>").text(team2Stats[9].value),  // Add statistics values for team 1 to list
         $("<li>").text(team2Stats[0].value),
         $("<li>").text(team2Stats[6].value),
         $("<li>").text(team2Stats[10].value),
@@ -142,6 +152,7 @@ async function displayFixtures(fixtures) {
       );
       const team2StatsDiv = $("<div>").addClass("team2-stats").append(team2StatsList);
       team2Container.append(team2StatsDiv);
+          // Combine the containers for both teams and the statistic names into one container
       const teamContainer = $("<div>").addClass("team-container notification").append(team1Container, statNameContainer, team2Container);
       $(parentEl).after(teamContainer);
       $(".clicked").off("click");
@@ -207,25 +218,29 @@ $(document).ready(function() {
 
   // console.log("Previous searches:", previousSearches);
 
+
+// update search buttons with recent searches
   function updatePreviousSearchesButtons(searches) {
     $(".previous-searches-container").remove();
-    const uniqueSearches = [];
+    // const uniqueSearches = []; Check if team is already displayed as a button in history 
+
+
+    // Iterate through the searches array. Check for duplicates. Add unique searches to the uniqueSearches array
     for (var i = 0; i < searches.length; i++) {
       if (!uniqueSearches.includes(searches[i])) {
         uniqueSearches.push(searches[i]);
-        if (uniqueSearches.length > 4) {
-          break;
+        if (uniqueSearches.length > 4) { // If there are more than 4 unique searches, stop adding to the array
         }
       }
     }
-    for (var i = 0; i < uniqueSearches.length; i++) {
+    for (var i = 0; i < uniqueSearches.length; i++) { // Iterate through the uniqueSearches array and create a button for each search
       const searchTerm = uniqueSearches[i];
-      const button = $("<button>").addClass("button is-outlined previous-searches-button").text(searchTerm);
+      const button = $("<button>").addClass("button is-outlined previous-searches-button").text(searchTerm);  // Create a button element with the search term text and attach a click listener that will update the search box and trigger a new search
       button.click(function() {
         $("#SearchBox").val($(this).text());
         searchTrigger();
       });
-      const container = $("<div>").addClass("previous-searches-container").append(button);
+      const container = $("<div>").addClass("previous-searches-container").append(button);  // Create a container div for the button and add it to the previous searches container element
       $("#PrevSearches").append(container);
     }
   }
