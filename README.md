@@ -14,6 +14,22 @@ Given: A football game is live at the time of use.
 When: The user will load the web app and select a game.
 Then: The user is provided with information about the football teams and scores.
 
+# description 
+An app that enables the user to search for a football team in the premier league and see their fixtures ofr the current season. User is able to see statistics for each match, if it has already been played. They can also an exerpt from wikipedia for each team.
+
+# usage 
+When first navigating to the site, user is presented with a search bar (previous searches underneath search bar if already used). User enters team name into search bar and clicks search button.
+>>> image here 
+
+If user enters incorrect team name, a modal will display telling them to enter existing premier league team. (IF THIS ISN'T WORKING THEN TAKE OUT)
+>>> image here
+
+The search will display a list of matches for the whole season. They can view data for past, present and future matches. 
+>>> image here 
+
+User clicks "V" button to display statistics for match, and clicks team name to display wikipedia exerpt.
+>>> image here
+
 
 ## GitLab Repository
 
