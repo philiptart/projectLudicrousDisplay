@@ -118,8 +118,8 @@ section#Matches{
 .FontBold{
 	font-weight: 700;	
 }
-/* new rules added start */
-#footer{ 
+/* Fixes footer to the bottom of page and sets colour, width and spacings */
+#footer{  
 	position: fixed;
 	bottom: 0px;
 	width:100%;
@@ -129,22 +129,25 @@ section#Matches{
 	background-color: rgb(205, 203, 201);
 	padding: 5px;
 }
+/*Centers footer text*/
 #footer h4{
 	text-align: center;
 	padding: 5px;
 }
+/*display authors links left to right*/
 #footer ul{
 	display: flex; 
 	flex-direction: row; 
 	justify-content: center;
 }
+/*basic styling round links list items*/
 #footer ul li{
 	padding :5px; 
 	margin: 5px;
 	border-radius: 4px; 
 	background-color: antiquewhite;
 }
-/* new rules added end  */
+
 @media screen and (max-width: 1023px){
 main{
 	flex-direction: column;
@@ -195,6 +198,10 @@ section#Matches.on{
 .Match{
     width: 95%;
 }
+/* Changes flex direction to footer on mobile to be less wide */
+footer{
+	flex-direction: column;
+}
 }
 
 #prevSearchesTitle {
@@ -202,8 +209,4 @@ section#Matches.on{
 	text-align: center;
 }
 
-/* new rule added */
-footer{
-	flex-direction: column;
-}
 

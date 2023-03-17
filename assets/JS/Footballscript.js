@@ -160,6 +160,38 @@ async function displayFixtures(fixtures) {
   }eventListener();
 }
 
+// define the showModal function to display the modal
+function showModal(title, message) {
+
+  // create the modal elements
+  const modal = $('<div class="modalOn"></div>');
+  const modalBackground = $('<div class="modal-background"></div>');
+  const modalCard = $('<div class="modal-card"></div>');
+  const modalHeader = $('<header class="modal-card-head"></header>');
+  const modalTitle = $('<p class="modal-card-title"></p>').text(title);
+  const modalBody = $('<section class="modal-card-body"></section>').html(message);
+  const modalCloseButton = $('<button class="delete" aria-label="close"></button>');
+  // assemble the modal elements
+  modalHeader.append(modalTitle);
+  modalHeader.append(modalCloseButton);
+  modalCard.append(modalHeader);
+  modalCard.append(modalBody);
+  modal.append(modalBackground);
+  modal.append(modalCard);
+  // add event listener to close the modal when the close button is clicked
+  modalCloseButton.on('click', function() {
+
+    modal.remove();
+    $('html').removeClass('is-clipped');
+  });
+  // add the modal to the DOM
+
+  $('html').addClass('is-clipped');
+  $('body').append(modal);
+}
+
+
+
 //search trigger
 var searchTrigger = async()=>{
   const teamName = searchBar.val().trim(); //gets value in the search bar
@@ -169,7 +201,10 @@ var searchTrigger = async()=>{
       const fixtures = await getFixtures(teamId);
       displayFixtures(fixtures);
     } catch (error) { //if error is returned
-      console.log(error); //display the error in the console
+      
+      const message = "Sorry, "+teamName+" is not a valid team. Please enter a valid team name.";
+      showModal("Invalid Team", message); //display the error in the console
+      console.log(error);
     }
   }
 }
