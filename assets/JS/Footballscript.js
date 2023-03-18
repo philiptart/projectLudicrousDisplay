@@ -1,27 +1,27 @@
-const API_key = "fafe8cbedaafdf72bc1803ea320e36f7";
-const leagueId = 39;
-const currentYear = 2022;
-const teamsEndpoint = `https://v3.football.api-sports.io/teams?league=${leagueId}&season=${currentYear}`;
-const searchButton = $("#searchButton");
-const searchBar = $("#SearchBar input");
-const matchesSection = $("#Matches");
-var item =1
-var colourClass =""
+const API_key = "fafe8cbedaafdf72bc1803ea320e36f7"; //API key for API football
+const leagueId = 39; //league 39 is the english premier league
+const currentYear = 2022; // starting year of tournement, this could be automatically updated using some logic and dayJS
+const teamsEndpoint = `https://v3.football.api-sports.io/teams?league=${leagueId}&season=${currentYear}`; //building of query including root and query parameters
+const searchButton = $("#searchButton");//get the search button from the html
+const searchBar = $("#SearchBar input"); // get the input form for the search
+const matchesSection = $("#Matches"); // Get the section where matches are to be displayed
+var item =1 // a variable used to cycle colouring in the match results for a more readable ux
+var colourClass ="" // a variable to set the class of the match results, placed here to be gloablly available
 
 
 
   
 
-var itemClassSelector = function(){
-  if(item==1){
-    colourClass = "is-primary";
-    item++;
-  } else if (item==2){
-    colourClass = "is-warning";
-    item++;
-  } else {
-    item=1;
-    colourClass = "is-link";
+var itemClassSelector = function(){ //function to cycle the colouring on the generated results
+  if(item==1){ //first, item=1
+    colourClass = "is-primary"; //is primary colour 
+    item++; //increment so item =2
+  } else if (item==2){ // second, item =2
+    colourClass = "is-warning";//is warning colour
+    item++;//increment so item =3
+  } else {//when item =3
+    item=1;//reset item to equal 1, restarting the cycle
+    colourClass = "is-link";//using link colour
   }
 }
 
