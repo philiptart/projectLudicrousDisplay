@@ -257,7 +257,7 @@ $(document).ready(function() {
 // update search buttons with recent searches
   function updatePreviousSearchesButtons(searches) {
     $(".previous-searches-container").remove();
-    // const uniqueSearches = []; Check if team is already displayed as a button in history 
+    const uniqueSearches = []; //Check if team is already displayed as a button in history 
 
 
     // Iterate through the searches array. Check for duplicates. Add unique searches to the uniqueSearches array
